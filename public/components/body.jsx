@@ -2,10 +2,11 @@ import React, {Component} from 'react';
 import Home from "./home";
 import SignIn from "./sign_in";
 import Courses from "./courses";
-import Signup from "./signup";
+import Signup  from "./signup";
 import AdminCreate from "./createAdmin";
 import Instructor from "./instructor";
 import AssignInstructor from "./assignInstructor";
+import Admins from "./adminDashboard";
 
 import { Route, Link, Switch } from 'react-router-dom';
 
@@ -20,6 +21,7 @@ class Body extends Component {
                     <Route path="/adminCreate" component={AdminCreate} ></Route>
                     <Route path="/instructor" component={Instructor} ></Route>
                     <Route path="/assignInstructor" component={AssignInstructor} ></Route>
+                    <Route path="/admin_dashboard" component={Admins} ></Route>
                     <Route exact path="/" component={Home} ></Route>
                 </Switch>
             </div>

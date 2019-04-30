@@ -11,6 +11,9 @@ class NavBar extends Component {
         this.adminCreate = null;
         this.instructor = null;
         this.assigninstructor = null;
+        this.notificationButton = null;
+        this.assignmentUpload = null;
+        this.studentCourses = null;
         this.state = null;
         if(localStorage.getItem('token')){
 
@@ -20,17 +23,21 @@ class NavBar extends Component {
             if(localStorage.getItem('type') == "Admin"){
 
                 this.courseButton = <Course />
-                this.adminCreate = <AdminCreate />
+                this.adminCreate = <Admin />
                 this.instructor = <Instructor />
                 this.assigninstructor = <AssignInstructor />
-                
             }
+            else if(localStorage.getItem('type') == "Student"){
+
+               this.notificationButton = <Notifications />
+               this.assignmentUpload = <AssignmentUpload/>
+               this.studentCourses = <StudentCourses/>
+           }
 
         } else {
 
             this.loginButton = <Login />;
         }
-           
     }
     
     render() {
@@ -59,7 +66,16 @@ class NavBar extends Component {
                             <li className="nav-item ">
                                 {this.assigninstructor}
                             </li>
-
+                            <li className="nav-item ">
+                                {this.notificationButton}
+                            </li>
+                            <li className="nav-item ">
+                                {this.assignmentUpload}
+                            </li>
+                            
+                            <li className="nav-item ">
+                                {this.studentCourses}
+                            </li>
                             <li className="nav-item" style={divStyle}>
                                 {this.loginButton}
                             </li>
@@ -69,7 +85,6 @@ class NavBar extends Component {
             </div>
         );
     }
-
 }
 
 class Login extends React.Component {
@@ -107,18 +122,18 @@ class Login extends React.Component {
     render() {
        return (
           <div>
-             <Link className="nav-link" to="/courses">Courses</Link>
+             <Link className="nav-link" to="/courses">Course</Link>
           </div>
        );
     }
  }
 
- class AdminCreate extends React.Component {
+ class Admin extends React.Component {
 
     render() {
        return (
           <div>
-             <Link className="nav-link" to="/adminCreate">Create Admin</Link>
+             <Link className="nav-link" to="/admin_dashboard">Admin</Link>
           </div>
        );
     }
@@ -145,4 +160,38 @@ class Login extends React.Component {
        );
     }
  }
+
+ class Notifications extends React.Component {
+
+   render() {
+      return (
+         <div>
+            <Link className="nav-link" to="/notifications">Notifications</Link>
+         </div>
+      );
+   }
+}
+
+class AssignmentUpload extends React.Component {
+
+   render() {
+      return (
+         <div>
+            <Link className="nav-link" to="/assignmentUpload">Assignment Upload</Link>
+         </div>
+      );
+   }
+}
+
+class StudentCourses extends React.Component {
+
+   render() {
+      return (
+         <div>
+            <Link className="nav-link" to="/studentCourses">Student Courses</Link>
+         </div>
+      );
+   }
+}
+
 export default NavBar;

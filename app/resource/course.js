@@ -26,9 +26,8 @@ function create(req, res, next) {
                 var course = new Course();
 
                 course.name = req.body.Name;
-                course.instructor = req.body.instructor;
 
-                Course.findOne({ 'id': req.body._id }).exec(function (err, courses) {
+                Course.findOne({ 'name': req.body.Name }).exec(function (err, courses) {
 
                     if (err) {
 
