@@ -17,6 +17,7 @@ class Signup extends Component {
                                        placeholder="First Name">
                                 </input>
                             </div>
+
                             <div className="form-group">
                                 <input type="text"
                                        className="form-control"
@@ -24,28 +25,44 @@ class Signup extends Component {
                                        placeholder="Last Name">
                                 </input>
                             </div>
+
+                            <div className="form-group">
+                                <select
+                                    className="form-control"
+                                    name="faculty">
+
+                                    <option value="" disabled selected>Faculty</option>
+                                    <option>IT</option>
+                                    <option>Business</option>
+                                    <option>Engineering</option>
+                                </select>
+                            </div>
+
+                            <div className="form-group">
+                                <input type="text"
+                                       className="form-control"
+                                       name="username"
+                                       placeholder="Username (Student Reg. Number)">
+                                </input>
+                            </div>
+
+                            <div className="form-group">
+                                <input type="password"
+                                       className="form-control"
+                                       name="password"
+                                       placeholder="Password">
+                                </input>
+                            </div>
+
+                            <div className="form-group">
+                                <input type="password"
+                                       className="form-control"
+                                       name="confirm_password"
+                                       placeholder="Confirm Password">
+                                </input>
+                            </div>
                         </div>
-                        <div className="form-group">
-                            <input type="text"
-                                   className="form-control"
-                                   name="username"
-                                   placeholder="Username (NIC)">
-                            </input>
-                        </div>
-                        <div className="form-group">
-                            <input type="password"
-                                   className="form-control"
-                                   name="password"
-                                   placeholder="Password">
-                            </input>
-                        </div>
-                        <div className="form-group">
-                            <input type="password"
-                                   className="form-control"
-                                   name="confirm_password"
-                                   placeholder="Confirm Password">
-                            </input>
-                        </div>
+
                         <div className="form-group">
                             <button type="submit" className="btn btn-primary btn-lg">Sign Up</button>
                         </div>
