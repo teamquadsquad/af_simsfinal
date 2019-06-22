@@ -17,6 +17,7 @@ mongoose.connect('mongodb://localhost:27017/sims').then(() => {
 
 app.use('/api/rooms', require('./app/routes/room.server.routes'));
 app.use('/api/categories', require('./app/routes/category.server.routes'));
+app.use('/api', require('./app/routes/api'));
 
 
 app.use(bundler.middleware());
