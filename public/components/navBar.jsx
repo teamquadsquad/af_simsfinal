@@ -17,6 +17,8 @@ class NavBar extends Component {
                             <li className="nav-item float-right">
                                 <Link className="nav-link" to="/sign_in">Sign In</Link>
                             </li>
+
+
                         </ul>
                     </div>
                 </nav>

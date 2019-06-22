@@ -2,7 +2,8 @@ const Joi = require('joi');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const studentSchema = new Schema({
+const Student = mongoose.model( 'Student', new mongoose.Schema({
+
     firstname: {
         type: String,
         required: true,
@@ -37,9 +38,8 @@ const studentSchema = new Schema({
         required: true,
         minlength: 5,
         maxlength: 255,
-    },
-
-});
+    }
+}));
 
 function validateStudent( student ){
     const schema = {
@@ -48,7 +48,10 @@ function validateStudent( student ){
         faculty: Joi.string().min(2).max(50).required(),
         username: Joi.string().min(5).max(255).required(),
         password: Joi.string().min(5).max(255).required(),
-    }
+    };
+
+    return Joi.validate( student, schema );
 }
 
-module.exports = mongoose.model('Student', studentSchema);
+exports.Student = Student;
+exports.validate = validateStudent;

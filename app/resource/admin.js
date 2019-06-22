@@ -3,6 +3,7 @@ var jwt = require('jsonwebtoken');
 var config = require('../constant/config');
 var statusCode = require('../constant/status_codes');
 var respones = require('../constant/responses');
+
 var Admin = require('../models/admin');
 
 /**
@@ -22,7 +23,7 @@ function create(req, res, next) {
             if (err) {
 
                 res.json(respones.failure(statusCode.NON_AUTHORITATIVE_INFORMATION, err, 'token fail', "#US001"));
-            } else if (true) {
+            } else if (decoded.type == "Admin") {
                 var admin = new Admin();
 
                 admin.email = req.body.Email;
@@ -93,7 +94,7 @@ function login(req, res, next) {
 
                         const payload = {
                             id: admin._id,
-                            type: "CreateAdmin"
+                            type: "Admin"
                         };
                         //token is a encrypted code. encrypted by secret.send this as a response when logged.
                         var coursewebToken = jwt.sign(payload, config.secret, {
@@ -105,7 +106,7 @@ function login(req, res, next) {
                             token: coursewebToken,
                             email: admin.email,
                             name: admin.name,
-                            type: "CreateAdmin",
+                            type: "Admin",
 
                         }));
                     } else {

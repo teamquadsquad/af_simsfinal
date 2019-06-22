@@ -1,37 +1,92 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
+import axios from "axios";
 
 class Signup extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            firstname: '',
+            lastname: '',
+            faculty: '',
+            username: '',
+            password: ''
+        };
+
+        this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleInputChange(e) {
+        this.setState({
+            [e.target.name]: e.target.value
+        })
+    }
+
+    handleSubmit(e) {
+
+        e.preventDefault();
+
+        const stdobj = {
+            firstname: this.state.firstname,
+            lastname: this.state.lastname,
+            faculty: this.state.faculty,
+            username: this.state.username,
+            password: this.state.password
+        };
+
+        axios.post('/api/students', stdobj).then(
+            data => {
+                console.log('Success ' + data.data);
+            }
+        );
+
+        this.setState({
+            firstname: '',
+            lastname: '',
+            faculty: '',
+            username: '',
+            password: ''
+        })
+    }
+
     render() {
         return (
             <div>
                 <div className="signup-form">
-                    <form>
+                    <form onSubmit={this.handleSubmit}>
                         <h2>Sign Up</h2>
                         <p>Please fill in this form to create an account!</p>
                         <div className="form-group">
                             <div className="form-group">
                                 <input type="text"
                                        className="form-control"
-                                       name="first_name"
-                                       placeholder="First Name">
+                                       placeholder="First Name"
+                                       onChange={this.handleInputChange}
+                                       value={this.state.firstname}
+                                       name="firstname">
                                 </input>
                             </div>
 
                             <div className="form-group">
                                 <input type="text"
                                        className="form-control"
-                                       name="last_name"
-                                       placeholder="Last Name">
+                                       placeholder="Last Name"
+                                       onChange={this.handleInputChange}
+                                       value={this.state.lastname}
+                                       name="lastname">
                                 </input>
                             </div>
 
                             <div className="form-group">
                                 <select
                                     className="form-control"
+                                    name="faculty"
+                                    onChange={this.handleInputChange}
+                                    value={this.state.faculty}
                                     name="faculty">
 
-                                    <option value="" disabled selected>Faculty</option>
                                     <option>IT</option>
                                     <option>Business</option>
                                     <option>Engineering</option>
@@ -41,16 +96,20 @@ class Signup extends Component {
                             <div className="form-group">
                                 <input type="text"
                                        className="form-control"
-                                       name="username"
-                                       placeholder="Username (Student Reg. Number)">
+                                       placeholder="Username (Student Reg. Number)"
+                                       onChange={this.handleInputChange}
+                                       value={this.state.username}
+                                       name="username">
                                 </input>
                             </div>
 
                             <div className="form-group">
                                 <input type="password"
                                        className="form-control"
-                                       name="password"
-                                       placeholder="Password">
+                                       placeholder="Password"
+                                       onChange={this.handleInputChange}
+                                       value={this.state.password}
+                                       name="password">
                                 </input>
                             </div>
 

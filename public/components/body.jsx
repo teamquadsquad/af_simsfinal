@@ -2,9 +2,7 @@ import React, {Component} from 'react';
 import Home from "./home";
 import SignIn from "./sign_in";
 import Courses from "./courses";
-import SignUp from "./sign_up";
-import CreateAdmin from "./createAdmin";
-import Admin from "./admin";
+import Signup from "./signup";
 import { Route, Link, Switch } from 'react-router-dom';
 
 class Body extends Component {
@@ -13,10 +11,8 @@ class Body extends Component {
             <div className="container mt-3">
                 <Switch>
                     <Route path="/sign_in" component={SignIn} ></Route>
-                    <Route path="/sign_up" component={SignUp} ></Route>
+                    <Route path="/sign_up" component={Signup} ></Route>
                     <Route path="/courses" component={Courses} ></Route>
-                    <Route path="/Admin" component={Admin} ></Route>
-                    <Route path="/createAdmin" component={CreateAdmin} ></Route>
                     <Route exact path="/" component={Home} ></Route>
                 </Switch>
             </div>

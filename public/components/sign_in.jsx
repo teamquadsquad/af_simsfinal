@@ -15,7 +15,7 @@ class SignIn extends Component {
                         <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
 
                         <label htmlFor="inputEmail" className="sr-only">Username</label>
-                        <input type="email"
+                        <input type="text"
                                id="inputusername"
                                className="form-control"
                                placeholder="Username"
