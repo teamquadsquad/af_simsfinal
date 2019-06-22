@@ -8,7 +8,7 @@ const app = express();
 
 app.use(express.json());
 
-mongoose.connect('mongodb://localhost:27017/react-sample').then(() => {
+mongoose.connect('mongodb://localhost:27017/sims').then(() => {
     console.log('Connected to the DB');
 }).catch(err => {
     console.error(err);
