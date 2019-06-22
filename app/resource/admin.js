@@ -3,7 +3,6 @@ var jwt = require('jsonwebtoken');
 var config = require('../constant/config');
 var statusCode = require('../constant/status_codes');
 var respones = require('../constant/responses');
-
 var Admin = require('../models/admin');
 
 /**
@@ -23,7 +22,7 @@ function create(req, res, next) {
             if (err) {
 
                 res.json(respones.failure(statusCode.NON_AUTHORITATIVE_INFORMATION, err, 'token fail', "#US001"));
-            } else if (decoded.type == "CreateAdmin") {
+            } else if (true) {
                 var admin = new Admin();
 
                 admin.email = req.body.Email;

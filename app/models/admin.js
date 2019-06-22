@@ -9,4 +9,4 @@ var AdminSchema = Schema({
   
 });
 
-module.exports = mongoose.model('CreateAdmin', AdminSchema);
+module.exports = mongoose.model('Admin', AdminSchema);
