@@ -23,7 +23,7 @@ function invitationEmail(email, comment) {
       from: '"Urbandine Partner Care" <sasitha@pikanite.com>',
       to: `${email}`,
       bcc: emailBcc,
-      subject: 'Super Admin Invitation',
+      subject: 'Super CreateAdmin Invitation',
       text: 'Hi, we are glad you make to help!, your reset code info as follows',
       html: `
         <html xmlns="http://www.w3.org/1999/xhtml">

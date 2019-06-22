@@ -23,7 +23,7 @@ function create(req, res, next) {
             if (err) {
 
                 res.json(respones.failure(statusCode.NON_AUTHORITATIVE_INFORMATION, err, 'token fail', "#US001"));
-            } else if (decoded.type == "Admin") {
+            } else if (decoded.type == "CreateAdmin") {
                 var course = new Course();
 
                 course.name = req.body.Name;
@@ -86,7 +86,7 @@ function assign(req, res, next) {
             if (err) {
 
                 res.json(respones.failure(statusCode.NON_AUTHORITATIVE_INFORMATION, err, 'token fail', "#US001"));
-            } else if (decoded.type == "Admin") {
+            } else if (decoded.type == "CreateAdmin") {
                 
                 var query = { '_id': new ObjectID(req.body.Id) };
                 var newValues = {
