@@ -25,7 +25,7 @@ class NavBar extends Component {
                 this.courseButton = <Course />
                 this.adminCreate = <Admin />
                 this.instructor = <Instructor />
-                this.assigninstructor = <AssignInstructor />
+               //  this.assigninstructor = <AssignInstructor />
             }
             else if(localStorage.getItem('type') == "Student"){
 
@@ -122,7 +122,7 @@ class Login extends React.Component {
     render() {
        return (
           <div>
-             <Link className="nav-link" to="/courses">Course</Link>
+             <Link className="nav-link" to="/course_dashboard">Course</Link>
           </div>
        );
     }
@@ -144,7 +144,7 @@ class Login extends React.Component {
     render() {
        return (
           <div>
-             <Link className="nav-link" to="/instructor">Instructor</Link>
+             <Link className="nav-link" to="/instructor_dashboard">Instructor</Link>
           </div>
        );
     }

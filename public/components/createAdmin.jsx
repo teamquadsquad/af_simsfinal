@@ -81,7 +81,7 @@ class CreateAdmin extends Component {
         return (
             <div className="container">
                 <form onSubmit={this.handleSubmit}>
-               
+                <h1>Create Administrator</h1>
                     <div className="form-group">
                         <label>Email</label>
                         <input

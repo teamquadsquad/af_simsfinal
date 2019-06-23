@@ -81,7 +81,7 @@ class Instructor extends Component {
     render() {
         return (
             <div>
-                <h1>Create Instructor </h1>
+                <h1>Create Instructor</h1>
                 <div className="container">
                 <form onSubmit={this.handleSubmit}>
                     <div className="form-group">

@@ -7,6 +7,8 @@ import AdminCreate from "./createAdmin";
 import Instructor from "./instructor";
 import AssignInstructor from "./assignInstructor";
 import Admins from "./adminDashboard";
+import CoursesDashboard from "./courseDashboard";
+import Instructors from "./instructorDashboard.jsx";
 import Assignment from "./assignmentsComponent";
 
 import { Route, Link, Switch } from 'react-router-dom';
@@ -23,6 +25,8 @@ class Body extends Component {
                     <Route path="/instructor" component={Instructor} ></Route>
                     <Route path="/assignInstructor" component={AssignInstructor} ></Route>
                     <Route path="/admin_dashboard" component={Admins} ></Route>
+                    <Route path="/course_dashboard" component={CoursesDashboard} ></Route>
+                    <Route path="/instructor_dashboard" component={Instructors} ></Route>
                     <Route path="/assignments" component={Assignment} ></Route>
                     <Route exact path="/" component={Home} ></Route>
                 </Switch>
