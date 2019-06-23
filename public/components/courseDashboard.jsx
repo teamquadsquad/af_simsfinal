@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 
-class Courses extends Component {
+class CoursesDashboard extends Component {
     render() {
         return (
             <div>
@@ -9,7 +9,7 @@ class Courses extends Component {
                     <div className="card-body">
                         <h5 className="card-title">View All Courses</h5>
                         <p className="card-text"></p>
-                        <Link to="/admin/view" className="btn btn-primary">View</Link>
+                        <Link to="/course_view" className="btn btn-primary">View</Link>
                     </div>
                 </div>
                 <div className="card m-2">
@@ -24,7 +24,7 @@ class Courses extends Component {
                     <div className="card-body">
                         <h5 className="card-title">Delete Courses</h5>
                         <p className="card-text"></p>
-                        <Link to="/admin/delete" className="btn btn-primary">Delete</Link>
+                        <Link to="/course_delete" className="btn btn-primary">Delete</Link>
                     </div>
                 </div>
             </div>
@@ -32,4 +32,4 @@ class Courses extends Component {
     }
 }
 
-export default Courses;
+export default CoursesDashboard;

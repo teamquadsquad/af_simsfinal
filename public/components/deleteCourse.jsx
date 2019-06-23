@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Select from 'react-select';
 
-class AssignInstructor extends Component {
+class DeleteCourse extends Component {
 
     constructor(props) {
 
@@ -24,24 +24,18 @@ class AssignInstructor extends Component {
                 label: '',
                 value: ''
             }],
-            instructors: [{
-                label: '',
-                value: ''
-            }],
 
             outputs: {
 
-                instructor: '',
                 course: ''
             }
         };
 
-        this.handleInputChangeCourse = this.handleInputChangeCourse.bind(this);
-        this.handleInputChangeInstructor = this.handleInputChangeInstructor.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleInputChangeCourse(e) {
+    handleInputChange(e) {
 
         console.log(e);
 
@@ -51,33 +45,17 @@ class AssignInstructor extends Component {
         })
     }
 
-    handleInputChangeInstructor(e) {
-
-        console.log(e);
-
-        this.setState({
-
-            outputs: { instructor: e.value }
-        })
-    }
-
     handleSubmit(e) {
 
         e.preventDefault();
 
-        console.log('instuctor - > ' + this.state.outputs.instructor);
         console.log('course - > ' + this.state.outputs.course);
-        
-        if (this.state.outputs.instructor != null && this.state.outputs.course != null) {
 
-            const catobj = {
+        if (this.state.outputs.course != null) {
 
-                Instructor: this.state.outputs.instructor,
-                Id: this.state.outputs.course
-            };
+            var id = this.state.outputs.course;
 
             var token = localStorage.getItem('token');
-            console.log(catobj);
 
             let headers = {
                 headers: {
@@ -85,7 +63,7 @@ class AssignInstructor extends Component {
                     'courseweb-access-token': token,
                 }
             }
-            axios.post('/api/course/assign', catobj, headers).then(
+            axios.delete('/api/course/' + id , headers).then(
                 data => {
 
                     if (data.data.status == 'fail') {
@@ -116,29 +94,8 @@ class AssignInstructor extends Component {
                 'courseweb-access-token': token,
             }
         }
-        axios.get('/api/course/dropDown', headers).then(
-            data => {
 
-                if (data.data.status == 'fail') {
-
-                    console.log(data.data);
-                } else {
-
-                    // console.log(this.state.courses);
-                    this.setState({
-
-                        courses: data.data.content
-                    });
-                }
-                // console.log('Success ' + data.data);
-            }
-        )
-            .catch(err => {
-
-                alert('server error');
-            });
-
-        axios.get('/api/instructor/dropDown', headers).then(
+        axios.get('/api/course/delDrop', headers).then(
             data => {
 
                 if (data.data.status == 'fail') {
@@ -148,7 +105,7 @@ class AssignInstructor extends Component {
 
                     this.setState({
 
-                        instructors: data.data.content
+                        course: data.data.content
                     });
                 }
             }
@@ -162,24 +119,20 @@ class AssignInstructor extends Component {
 
         return (
             <div>
-                <h1>Assign Instructors for Courses</h1>
+                <h1>Delete Instructors </h1>
                 <div className="container">
                     <form onSubmit={this.handleSubmit}>
                         <div className="form-group">
-                            <label>Courses</label>
-                            <Select
-                                options={this.state.courses}
-                                onChange={this.handleInputChangeCourse}
-                            />
-                            <label>Instructors</label>
-                            <Select options={this.state.instructors}
-                                onChange={this.handleInputChangeInstructor}
+
+                            <label>Select course</label>
+                            <Select options={this.state.course}
+                                onChange={this.handleInputChange}
 
                             />
                         </div>
 
                         <div className="form-group">
-                            <input type="submit" value="submit" />
+                            <input type="submit" value="Delete" />
                         </div>
                     </form>
                 </div>
@@ -188,4 +141,4 @@ class AssignInstructor extends Component {
     }
 }
 
-export default AssignInstructor;
+export default DeleteCourse;

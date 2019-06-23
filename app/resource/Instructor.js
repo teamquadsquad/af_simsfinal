@@ -143,12 +143,57 @@ function all(req, res, next) {
                         res.json(respones.failure(statusCode.NOT_MODIFIED, err, 'failed', "#PFU001"));
                     } else {
 
+                        console.log(instructors);
+                        
                         var finalArray = [];
                         for (let index = 0; index < instructors.length; index++) {
 
                             finalArray.push({label: instructors[index].name,value:instructors[index]._id});
                             
                         }
+                        console.log(finalArray);
+                        
+                        res.json(respones.success(statusCode.OK, 'success', "all instructors", finalArray));
+                    }
+                });
+            } else {
+
+                res.json(respones.failure(statusCode.METHOD_FAILURE, 'unauthorize user', 'execution fail', "#UNR004"));
+            }
+        });
+    } catch (error) {
+
+        console.log(error);
+        res.json(respones.failure(statusCode.METHOD_FAILURE, error, 'execution fail', "#UNR004"));
+    }
+}
+
+/**
+ * GET
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
+function view(req, res, next) {
+
+    try {
+
+        var coursewebToken = req.headers['courseweb-access-token'];
+        jwt.verify(coursewebToken, config.secret, async function (err, decoded) {
+
+            console.log(decoded);
+            if (err) {
+
+                res.json(respones.failure(statusCode.NON_AUTHORITATIVE_INFORMATION, err, 'token fail', "#US001"));
+            } else if (decoded.type == "Admin") {
+                
+                Instructor.find().exec( function (err, instructors) {
+
+                    if (err) {
+
+                        res.json(respones.failure(statusCode.NOT_MODIFIED, err, 'failed', "#PFU001"));
+                    } else {
+
                         res.json(respones.success(statusCode.OK, 'success', "all instructors", instructors));
                     }
                 });
@@ -163,8 +208,104 @@ function all(req, res, next) {
         res.json(respones.failure(statusCode.METHOD_FAILURE, error, 'execution fail', "#UNR004"));
     }
 }
+
+/**
+ * DELETE
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
+function remove(req, res, next) {
+
+    try {
+
+        var coursewebToken = req.headers['courseweb-access-token'];
+        jwt.verify(coursewebToken, config.secret, async function (err, decoded) {
+
+            console.log(decoded);
+            if (err) {
+
+                res.json(respones.failure(statusCode.NON_AUTHORITATIVE_INFORMATION, err, 'token fail', "#US001"));
+            } else if (decoded.type == "Admin") {
+                
+                Instructor.deleteOne({'_id': Object(req.params.id)}).exec( function (err, instructorResult) {
+
+                    if (err) {
+
+                        res.json(respones.failure(statusCode.NOT_MODIFIED, err, 'failed', "#PFU001"));
+                    } else {
+
+                        res.json(respones.success(statusCode.OK, 'success', "deleted instructor", instructorResult));
+                    }
+                });
+            } else {
+
+                res.json(respones.failure(statusCode.METHOD_FAILURE, 'unauthorize user', 'execution fail', "#UNR004"));
+            }
+        });
+    } catch (error) {
+
+        console.log(error);
+        res.json(respones.failure(statusCode.METHOD_FAILURE, error, 'execution fail', "#UNR004"));
+    }
+}
+
+/**
+ * GET
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
+function delDrop(req, res, next) {
+
+    try {
+
+        var coursewebToken = req.headers['courseweb-access-token'];
+        jwt.verify(coursewebToken, config.secret, async function (err, decoded) {
+
+            console.log(decoded);
+            if (err) {
+
+                res.json(respones.failure(statusCode.NON_AUTHORITATIVE_INFORMATION, err, 'token fail', "#US001"));
+            } else if (decoded.type == "Admin") {
+                
+                Instructor.find({'isEnable': true}).exec( function (err, instructors) {
+
+                    if (err) {
+
+                        res.json(respones.failure(statusCode.NOT_MODIFIED, err, 'failed', "#PFU001"));
+                    } else {
+
+                        console.log(instructors);
+                        
+                        var finalArray = [];
+                        for (let index = 0; index < instructors.length; index++) {
+
+                            finalArray.push({label: instructors[index].name,value:instructors[index]._id});
+                            
+                        }
+                        console.log(finalArray);
+                        
+                        res.json(respones.success(statusCode.OK, 'success', "all instructors", finalArray));
+                    }
+                });
+            } else {
+
+                res.json(respones.failure(statusCode.METHOD_FAILURE, 'unauthorize user', 'execution fail', "#UNR004"));
+            }
+        });
+    } catch (error) {
+
+        console.log(error);
+        res.json(respones.failure(statusCode.METHOD_FAILURE, error, 'execution fail', "#UNR004"));
+    }
+}
 module.exports = {
+
     create,
     approve,
-    all
+    all,
+    view,
+    remove,
+    delDrop
 };

@@ -125,8 +125,139 @@ function login(req, res, next) {
     }
 }
 
+/**
+ * GET
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
+function view(req, res, next) {
 
+    try {
+
+        var coursewebToken = req.headers['courseweb-access-token'];
+        jwt.verify(coursewebToken, config.secret, async function (err, decoded) {
+
+            console.log(decoded);
+            if (err) {
+
+                res.json(respones.failure(statusCode.NON_AUTHORITATIVE_INFORMATION, err, 'token fail', "#US001"));
+            } else if (decoded.type == "Admin") {
+                
+                Admin.find().exec( function (err, admins) {
+
+                    if (err) {
+
+                        res.json(respones.failure(statusCode.NOT_MODIFIED, err, 'failed', "#PFU001"));
+                    } else {
+
+                        res.json(respones.success(statusCode.OK, 'success', "all admins", admins));
+                    }
+                });
+            } else {
+
+                res.json(respones.failure(statusCode.METHOD_FAILURE, 'unauthorize user', 'execution fail', "#UNR004"));
+            }
+        });
+    } catch (error) {
+
+        console.log(error);
+        res.json(respones.failure(statusCode.METHOD_FAILURE, error, 'execution fail', "#UNR004"));
+    }
+}
+
+/**
+ * DELETE
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
+function remove(req, res, next) {
+
+    try {
+
+        var coursewebToken = req.headers['courseweb-access-token'];
+        jwt.verify(coursewebToken, config.secret, async function (err, decoded) {
+
+            console.log(decoded);
+            if (err) {
+
+                res.json(respones.failure(statusCode.NON_AUTHORITATIVE_INFORMATION, err, 'token fail', "#US001"));
+            } else if (decoded.type == "Admin") {
+                
+                Admin.deleteOne({'_id': Object(req.params.id)}).exec( function (err, adminResult) {
+
+                    if (err) {
+
+                        res.json(respones.failure(statusCode.NOT_MODIFIED, err, 'failed', "#PFU001"));
+                    } else {
+
+                        
+                        res.json(respones.success(statusCode.OK, 'success', "admin removed", adminResult));
+                    }
+                });
+            } else {
+
+                res.json(respones.failure(statusCode.METHOD_FAILURE, 'unauthorize user', 'execution fail', "#UNR004"));
+            }
+        });
+    } catch (error) {
+
+        console.log(error);
+        res.json(respones.failure(statusCode.METHOD_FAILURE, error, 'execution fail', "#UNR004"));
+    }
+}
+
+/**
+ * GET
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
+function delDrop(req, res, next) {
+
+    try {
+
+        var coursewebToken = req.headers['courseweb-access-token'];
+        jwt.verify(coursewebToken, config.secret, async function (err, decoded) {
+
+            console.log(decoded);
+            if (err) {
+
+                res.json(respones.failure(statusCode.NON_AUTHORITATIVE_INFORMATION, err, 'token fail', "#US001"));
+            } else if (decoded.type == "Admin") {
+                
+                Admin.find().exec( function (err, admins) {
+
+                    if (err) {
+
+                        res.json(respones.failure(statusCode.NOT_MODIFIED, err, 'failed', "#PFU001"));
+                    } else {
+
+                        var finalArray = [];
+                        for (let index = 0; index < admins.length; index++) {
+
+                            finalArray.push({label: admins[index].name,value:admins[index]._id});
+                            
+                        }
+                        res.json(respones.success(statusCode.OK, 'success', "all admins", finalArray));
+                    }
+                });
+            } else {
+
+                res.json(respones.failure(statusCode.METHOD_FAILURE, 'unauthorize user', 'execution fail', "#UNR004"));
+            }
+        });
+    } catch (error) {
+
+        console.log(error);
+        res.json(respones.failure(statusCode.METHOD_FAILURE, error, 'execution fail', "#UNR004"));
+    }
+}
 module.exports = {
     create,
     login,
+    view,
+    delDrop,
+    remove
 };

@@ -131,7 +131,138 @@ function all(req, res, next) {
                 res.json(respones.failure(statusCode.NON_AUTHORITATIVE_INFORMATION, err, 'token fail', "#US001"));
             } else if (decoded.type == "Admin") {
                 
-                Course.find({'isEnable': true}).exec( function (err, courses) {
+                Course.find({'isEnable': false}).exec( function (err, courses) {
+
+                    if (err) {
+
+                        res.json(respones.failure(statusCode.NOT_MODIFIED, err, 'failed', "#PFU001"));
+                    } else {
+
+                        var finalArray = [];
+                        for (let index = 0; index < courses.length; index++) {
+
+                            finalArray.push({label: courses[index].name,value:courses[index]._id});
+                            
+                        }
+                        res.json(respones.success(statusCode.OK, 'success', "all courses", finalArray));
+                    }
+                });
+            } else {
+
+                res.json(respones.failure(statusCode.METHOD_FAILURE, 'unauthorize user', 'execution fail', "#UNR004"));
+            }
+        });
+    } catch (error) {
+
+        console.log(error);
+        res.json(respones.failure(statusCode.METHOD_FAILURE, error, 'execution fail', "#UNR004"));
+    }
+}
+
+/**
+ * GET
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
+function view(req, res, next) {
+
+    try {
+
+        var coursewebToken = req.headers['courseweb-access-token'];
+        jwt.verify(coursewebToken, config.secret, async function (err, decoded) {
+
+            console.log(decoded);
+            if (err) {
+
+                res.json(respones.failure(statusCode.NON_AUTHORITATIVE_INFORMATION, err, 'token fail', "#US001"));
+            } else if (decoded.type == "Admin") {
+                
+                Course.find().exec( function (err, courses) {
+
+                    if (err) {
+
+                        res.json(respones.failure(statusCode.NOT_MODIFIED, err, 'failed', "#PFU001"));
+                    } else {
+
+                        
+                        res.json(respones.success(statusCode.OK, 'success', "all courses", courses));
+                    }
+                });
+            } else {
+
+                res.json(respones.failure(statusCode.METHOD_FAILURE, 'unauthorize user', 'execution fail', "#UNR004"));
+            }
+        });
+    } catch (error) {
+
+        console.log(error);
+        res.json(respones.failure(statusCode.METHOD_FAILURE, error, 'execution fail', "#UNR004"));
+    }
+}
+
+/**
+ * DELETE
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
+function remove(req, res, next) {
+
+    try {
+
+        var coursewebToken = req.headers['courseweb-access-token'];
+        jwt.verify(coursewebToken, config.secret, async function (err, decoded) {
+
+            console.log(decoded);
+            if (err) {
+
+                res.json(respones.failure(statusCode.NON_AUTHORITATIVE_INFORMATION, err, 'token fail', "#US001"));
+            } else if (decoded.type == "Admin") {
+                
+                Course.deleteOne({'_id': Object(req.params.id)}).exec( function (err, coursesResult) {
+
+                    if (err) {
+
+                        res.json(respones.failure(statusCode.NOT_MODIFIED, err, 'failed', "#PFU001"));
+                    } else {
+
+                        
+                        res.json(respones.success(statusCode.OK, 'success', "course removed", coursesResult));
+                    }
+                });
+            } else {
+
+                res.json(respones.failure(statusCode.METHOD_FAILURE, 'unauthorize user', 'execution fail', "#UNR004"));
+            }
+        });
+    } catch (error) {
+
+        console.log(error);
+        res.json(respones.failure(statusCode.METHOD_FAILURE, error, 'execution fail', "#UNR004"));
+    }
+}
+
+/**
+ * GET
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
+function delDrop(req, res, next) {
+
+    try {
+
+        var coursewebToken = req.headers['courseweb-access-token'];
+        jwt.verify(coursewebToken, config.secret, async function (err, decoded) {
+
+            console.log(decoded);
+            if (err) {
+
+                res.json(respones.failure(statusCode.NON_AUTHORITATIVE_INFORMATION, err, 'token fail', "#US001"));
+            } else if (decoded.type == "Admin") {
+                
+                Course.find().exec( function (err, courses) {
 
                     if (err) {
 
@@ -161,6 +292,9 @@ function all(req, res, next) {
 module.exports = {
     create,
     assign,
-    all
+    all,
+    view,
+    remove,
+    delDrop
 };
 
