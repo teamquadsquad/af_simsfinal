@@ -2,7 +2,7 @@ const Joi = require('joi');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const Student = mongoose.model( 'Student', new mongoose.Schema({
+const StudentSchema = mongoose.model( 'Student', Schema({
 
     firstname: {
         type: String,
@@ -53,5 +53,5 @@ function validateStudent( student ){
     return Joi.validate( student, schema );
 }
 
-exports.Student = Student;
+exports.Student = StudentSchema;
 exports.validate = validateStudent;

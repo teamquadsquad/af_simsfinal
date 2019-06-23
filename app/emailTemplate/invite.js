@@ -4,15 +4,17 @@ var emailBcc = 'hasi_w@icloud.com';
 
 function invite(email) {
 
+    console.log('Instructor email');
+    
     var transporter = nodemailer.createTransport({
 
-        host: 'smtp.ethereal.email',
+        host: 'smtp.sendgrid.net',
         port: 587,
         secure: true,
         keepBcc: true,
         auth: {
-            user: 'maeve.conroy64@ethereal.email',
-            pass: 'kfxVsJqHX19ejMJB5w'
+            user: 'sasitha',
+            pass: 'Sasitha.3'
         },
         tls: {
 

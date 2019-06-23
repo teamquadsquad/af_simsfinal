@@ -1,12 +1,11 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import axios from 'axios';
 
-class CreateAdmin extends Component {
-    
+class Instructor extends Component {
+
     constructor(props) {
 
         super(props);
-
         if(localStorage.getItem('token')){
 
             console.log('token exist');
@@ -19,8 +18,8 @@ class CreateAdmin extends Component {
             this.props.history.push('/sign_in');         
         }
         this.state = {
-            email:'',
             name: '',
+            email: '',
             password: ''
         };
 
@@ -29,32 +28,33 @@ class CreateAdmin extends Component {
     }
 
     handleInputChange(e) {
+        
         this.setState({
             [e.target.name]: e.target.value
         })
     }
 
     handleSubmit(e) {
-
         e.preventDefault();
-        const adminobj = {
-            Email: this.state.email,
+        const catobj = {
             Name: this.state.name,
+            Email: this.state.email,
             Password: this.state.password
         };
-
+        
         var token = localStorage.getItem('token');
         console.log(token);
-
+        
         let headers = {
             headers: {
 
-                'courseweb-access-token': token,
+              'courseweb-access-token': token,
             }
-        }
-
-        axios.post('/api/admin', adminobj, headers).then(
+          }
+        axios.post('/api/instructor', catobj, headers).then(
             data => {
+
+                // alert(data.data.message);
                 if(data.data.status == 'fail'){
 
                     alert(data.data.details);
@@ -62,35 +62,28 @@ class CreateAdmin extends Component {
 
                     alert('Successful');
                 }
+                
+                // console.log('Success ' + data.data);
             }
-        ).catch( err => {
+        )
+        .catch(err => {
 
-            alert('Server error');
+            alert('server error');
         });
 
         this.setState({
-            email:'',
             name: '',
+            email: '',
             password: ''
         })
 
     }
-
     render() {
-
         return (
-            <div className="container">
+            <div>
+                <h1>Create Instructor </h1>
+                <div className="container">
                 <form onSubmit={this.handleSubmit}>
-                    <div className="form-group">
-                        <label>Email</label>
-                        <input
-                            type="email"
-                            className="form-control"
-                            onChange={this.handleInputChange}
-                            value={this.state.email}
-                            name="email"
-                        />
-                    </div>
                     <div className="form-group">
                         <label>Name</label>
                         <input
@@ -100,9 +93,14 @@ class CreateAdmin extends Component {
                             value={this.state.name}
                             name="name"
                         />
-                    </div>
-
-                    <div className="form-group">
+                        <label>Email</label>
+                        <input
+                            type="email"
+                            className="form-control"
+                            onChange={this.handleInputChange}
+                            value={this.state.email}
+                            name="email"
+                        />
                         <label>Password</label>
                         <input
                             type="password"
@@ -118,8 +116,9 @@ class CreateAdmin extends Component {
                     </div>
                 </form>
             </div>
-        )
+            </div>
+        );
     }
 }
 
-export default CreateAdmin;
+export default Instructor;

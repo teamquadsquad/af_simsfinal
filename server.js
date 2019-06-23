@@ -15,7 +15,9 @@ mongoose.connect('mongodb://localhost:27017/sims').then(() => {
     process.exit(-1);
 });
 
+app.use('/api', require('./app/routes/api'));
 app.use('/api/students', require('./app/routes/student.server.routes'));
+
 
 app.use(bundler.middleware());
 
