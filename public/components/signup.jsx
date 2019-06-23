@@ -109,7 +109,8 @@ class Signup extends Component {
                                        placeholder="Password"
                                        onChange={this.handleInputChange}
                                        value={this.state.password}
-                                       name="password">
+                                       name="password"
+                                       autoComplete="off">
                                 </input>
                             </div>
 
@@ -117,7 +118,8 @@ class Signup extends Component {
                                 <input type="password"
                                        className="form-control"
                                        name="confirm_password"
-                                       placeholder="Confirm Password">
+                                       placeholder="Confirm Password"
+                                       autoComplete="off">
                                 </input>
                             </div>
                         </div>

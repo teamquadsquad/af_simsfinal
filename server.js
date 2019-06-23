@@ -1,10 +1,10 @@
 const Bundler = require('parcel-bundler'),
     express = require('express'),
-    mongoose = require('mongoose');
+    mongoose = require('mongoose'),
+    Joi = require('joi');
+const app = express();
 
 const bundler = new Bundler('./public/index.html', {});
-
-const app = express();
 
 app.use(express.json());
 

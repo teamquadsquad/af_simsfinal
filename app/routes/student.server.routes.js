@@ -1,3 +1,5 @@
+const _ = require('lodash');
+const bcrypt = require('bcrypt');
 const {Student, validate} = require('../models/student');
 const express = require('express');
 const mongoose = require('mongoose');
@@ -11,17 +13,14 @@ router.post('/', async (req,res) => {
     let student = await Student.findOne({username: req.body.username});
     if (student) return res.status(400).send('Student already registered!');
 
-    student = new Student({
-        firstname : req.body.firstname,
-        lastname : req.body.lastname,
-        faculty : req.body.faculty,
-        username : req.body.username,
-        password : req.body.password
-    });
+    student = new Student( _.pick(req.body, ['firstname', 'lastname', 'faculty', 'username', 'password']));
+
+    const salt = await bcrypt.genSalt(10);
+    student.password = await bcrypt.hash( student.password, salt);
 
     await student.save();
 
-    res.send(student);
+    res.send( _.pick( student, ['_id', 'firstname', 'lastname', 'faculty', 'username'] ) );
 });
 
 router.get('/', function(req,res){

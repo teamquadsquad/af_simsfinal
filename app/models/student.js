@@ -21,7 +21,7 @@ const StudentSchema = mongoose.model( 'Student', Schema({
     faculty: {
         type: String,
         required: true,
-        minlength: 2,
+        minlength: 1,
         maxlength: 50,
     },
 
@@ -36,7 +36,7 @@ const StudentSchema = mongoose.model( 'Student', Schema({
     password: {
         type: String,
         required: true,
-        minlength: 5,
+        minlength: 2,
         maxlength: 255,
     }
 }));
@@ -45,9 +45,9 @@ function validateStudent( student ){
     const schema = {
         firstname: Joi.string().min(5).max(50).required(),
         lastname: Joi.string().min(5).max(50).required(),
-        faculty: Joi.string().min(2).max(50).required(),
+        faculty: Joi.string().min(1).max(50).required(),
         username: Joi.string().min(5).max(255).required(),
-        password: Joi.string().min(5).max(255).required(),
+        password: Joi.string().min(2).max(255).required()
     };
 
     return Joi.validate( student, schema );
