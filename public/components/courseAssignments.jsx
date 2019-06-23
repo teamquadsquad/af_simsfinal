@@ -66,8 +66,7 @@ class CourseAssignments extends Component {
                         </tbody>
                     </table>
                 </div>
-
-
+                <div>eer</div>
             </div>
         );
     }
