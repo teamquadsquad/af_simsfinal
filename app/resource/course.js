@@ -1,4 +1,3 @@
-var pwd = require('../controllers/password');
 var jwt = require('jsonwebtoken');
 var config = require('../constant/config');
 var statusCode = require('../constant/status_codes');
@@ -88,14 +87,14 @@ function assign(req, res, next) {
                 res.json(respones.failure(statusCode.NON_AUTHORITATIVE_INFORMATION, err, 'token fail', "#US001"));
             } else if (decoded.type == "Admin") {
                 
-                var query = { '_id': new ObjectID(req.body.Id) };
+                var query = { '_id': Object(req.body.Id) };
                 var newValues = {
 
                     instructor: req.body.Instructor,
                     isEnable: true
                 };
 
-                Course.findOneAndUpdate(query, newValues, function (err, instructor) {
+                Course.findOneAndUpdate(query, newValues, function (err, course) {
 
                     if (err) {
 
@@ -114,8 +113,55 @@ function assign(req, res, next) {
     }
 }
 
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
+function all(req, res, next) {
+
+    try {
+
+        var coursewebToken = req.headers['courseweb-access-token'];
+        jwt.verify(coursewebToken, config.secret, async function (err, decoded) {
+
+            console.log(decoded);
+            if (err) {
+
+                res.json(respones.failure(statusCode.NON_AUTHORITATIVE_INFORMATION, err, 'token fail', "#US001"));
+            } else if (decoded.type == "Admin") {
+                
+                Course.find({'isEnable': true}).exec( function (err, courses) {
+
+                    if (err) {
+
+                        res.json(respones.failure(statusCode.NOT_MODIFIED, err, 'failed', "#PFU001"));
+                    } else {
+
+                        var finalArray = [];
+                        for (let index = 0; index < courses.length; index++) {
+
+                            finalArray.push({label: courses[index].name,value:courses[index]._id});
+                            
+                        }
+                        res.json(respones.success(statusCode.OK, 'success', "all courses", finalArray));
+                    }
+                });
+            } else {
+
+                res.json(respones.failure(statusCode.METHOD_FAILURE, 'unauthorize user', 'execution fail', "#UNR004"));
+            }
+        });
+    } catch (error) {
+
+        console.log(error);
+        res.json(respones.failure(statusCode.METHOD_FAILURE, error, 'execution fail', "#UNR004"));
+    }
+}
 module.exports = {
     create,
     assign,
+    all
 };
 

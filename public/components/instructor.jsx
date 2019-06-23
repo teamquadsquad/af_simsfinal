@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 
-class Courses extends Component {
+class Instructor extends Component {
 
     constructor(props) {
 
@@ -18,7 +18,9 @@ class Courses extends Component {
             this.props.history.push('/sign_in');         
         }
         this.state = {
-            name: ''
+            name: '',
+            email: '',
+            password: ''
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -26,6 +28,7 @@ class Courses extends Component {
     }
 
     handleInputChange(e) {
+        
         this.setState({
             [e.target.name]: e.target.value
         })
@@ -35,6 +38,8 @@ class Courses extends Component {
         e.preventDefault();
         const catobj = {
             Name: this.state.name,
+            Email: this.state.email,
+            Password: this.state.password
         };
         
         var token = localStorage.getItem('token');
@@ -46,7 +51,7 @@ class Courses extends Component {
               'courseweb-access-token': token,
             }
           }
-        axios.post('/api/course', catobj, headers).then(
+        axios.post('/api/instructor', catobj, headers).then(
             data => {
 
                 // alert(data.data.message);
@@ -63,20 +68,20 @@ class Courses extends Component {
         )
         .catch(err => {
 
-            console.log(err);
+            alert('server error');
         });
 
         this.setState({
             name: '',
-            description: ''
+            email: '',
+            password: ''
         })
-
 
     }
     render() {
         return (
             <div>
-                <h1>courses</h1>
+                <h1>Create Instructor </h1>
                 <div className="container">
                 <form onSubmit={this.handleSubmit}>
                     <div className="form-group">
@@ -87,6 +92,22 @@ class Courses extends Component {
                             onChange={this.handleInputChange}
                             value={this.state.name}
                             name="name"
+                        />
+                        <label>Email</label>
+                        <input
+                            type="email"
+                            className="form-control"
+                            onChange={this.handleInputChange}
+                            value={this.state.email}
+                            name="email"
+                        />
+                        <label>Password</label>
+                        <input
+                            type="password"
+                            className="form-control"
+                            onChange={this.handleInputChange}
+                            value={this.state.password}
+                            name="password"
                         />
                     </div>
 
@@ -100,4 +121,4 @@ class Courses extends Component {
     }
 }
 
-export default Courses;
+export default Instructor;

@@ -1,11 +1,12 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import axios from 'axios';
 
-class Courses extends Component {
-
+class CreateAdmin extends Component {
+    
     constructor(props) {
 
         super(props);
+
         if(localStorage.getItem('token')){
 
             console.log('token exist');
@@ -18,7 +19,9 @@ class Courses extends Component {
             this.props.history.push('/sign_in');         
         }
         this.state = {
-            name: ''
+            email:'',
+            name: '',
+            password: ''
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -32,24 +35,26 @@ class Courses extends Component {
     }
 
     handleSubmit(e) {
+
         e.preventDefault();
-        const catobj = {
+        const adminobj = {
+            Email: this.state.email,
             Name: this.state.name,
+            Password: this.state.password
         };
-        
+
         var token = localStorage.getItem('token');
         console.log(token);
-        
+
         let headers = {
             headers: {
 
-              'courseweb-access-token': token,
+                'courseweb-access-token': token,
             }
-          }
-        axios.post('/api/course', catobj, headers).then(
-            data => {
+        }
 
-                // alert(data.data.message);
+        axios.post('/api/admin', adminobj, headers).then(
+            data => {
                 if(data.data.status == 'fail'){
 
                     alert(data.data.details);
@@ -57,28 +62,35 @@ class Courses extends Component {
 
                     alert('Successful');
                 }
-                
-                // console.log('Success ' + data.data);
             }
-        )
-        .catch(err => {
+        ).catch( err => {
 
-            console.log(err);
+            alert('Server error');
         });
 
         this.setState({
+            email:'',
             name: '',
-            description: ''
+            password: ''
         })
 
-
     }
+
     render() {
+
         return (
-            <div>
-                <h1>courses</h1>
-                <div className="container">
+            <div className="container">
                 <form onSubmit={this.handleSubmit}>
+                    <div className="form-group">
+                        <label>Email</label>
+                        <input
+                            type="email"
+                            className="form-control"
+                            onChange={this.handleInputChange}
+                            value={this.state.email}
+                            name="email"
+                        />
+                    </div>
                     <div className="form-group">
                         <label>Name</label>
                         <input
@@ -91,13 +103,23 @@ class Courses extends Component {
                     </div>
 
                     <div className="form-group">
+                        <label>Password</label>
+                        <input
+                            type="password"
+                            className="form-control"
+                            onChange={this.handleInputChange}
+                            value={this.state.password}
+                            name="password"
+                        />
+                    </div>
+
+                    <div className="form-group">
                         <input type="submit" value="submit" />
                     </div>
                 </form>
             </div>
-            </div>
-        );
+        )
     }
 }
 
-export default Courses;
+export default CreateAdmin;
