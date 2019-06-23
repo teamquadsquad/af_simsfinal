@@ -228,7 +228,7 @@ function view(req, res, next) {
                                         "isEnable": courses[index].isEnable,
                                         "_id": courses[index]._id,
                                         "name": courses[index].name,
-                                        "instructor": "",
+                                        "instructor": "Inactive",
                                         "description": courses[index].description
                                     }
                                 );

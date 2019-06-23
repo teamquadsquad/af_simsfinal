@@ -26,7 +26,6 @@ import CourseAssignments from "./courseAssignments";
 import InstructorCourses from "./instructorCourses";
 import StudentCourses from "./studentCourses";
 import AssignmentUpload from "./assignmentUpload";
-import CollectAssignments from "./collectAssignments";
 
 import { Route, Link, Switch } from 'react-router-dom';
 
@@ -59,16 +58,9 @@ class Body extends Component {
                     <Route path="/admin_dashboard" component={Admins} ></Route>
                     <Route path="/assignments" component={Assignment} ></Route>
                     <Route path="/instructorCourses" component={InstructorCourses} ></Route>
-
-                    <Route path="/course_assignments" component={CourseAssignments} ></Route>
-                    <Route path="/student_courses" component={StudentCourses} ></Route>
-                    <Route path="/assignment_upload" component={AssignmentUpload} ></Route>
-
                     <Route path="/courseAssignments" component={CourseAssignments} ></Route>
                     <Route path="/studentCourses" component={StudentCourses} ></Route>
                     <Route path="/assignmentUpload" component={AssignmentUpload} ></Route>
-                    <Route path="/collectAssignments" component={CollectAssignments} ></Route>
-
 
                     <Route exact path="/" component={Home} ></Route>
                 </Switch>
