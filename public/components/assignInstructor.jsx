@@ -47,7 +47,7 @@ class AssignInstructor extends Component {
 
         this.setState({
 
-            outputs: { course: e.value }
+            outputs: { course: e.value, instructor: this.state.outputs.instructor }
         })
     }
 
@@ -57,7 +57,7 @@ class AssignInstructor extends Component {
 
         this.setState({
 
-            outputs: { instructor: e.value }
+            outputs: { instructor: e.value, course: this.state.outputs.course  }
         })
     }
 
