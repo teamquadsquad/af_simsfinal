@@ -26,6 +26,7 @@ function create(req, res, next) {
                 var course = new Course();
 
                 course.name = req.body.Name;
+                course.description = req.body.Description;
 
                 Course.findOne({ 'name': req.body.Name }).exec(function (err, courses) {
 
@@ -50,6 +51,7 @@ function create(req, res, next) {
                                     res.json(respones.success(statusCode.OK, 'success', 'Created Successfully', {
 
                                         name: course.name,
+                                        description: course.description,
                                         instructor: course.instructor,
                                         _id: course._id
                                     }));
@@ -85,7 +87,7 @@ function assign(req, res, next) {
 
                 res.json(respones.failure(statusCode.NON_AUTHORITATIVE_INFORMATION, err, 'token fail', "#US001"));
             } else if (decoded.type == "Admin") {
-                
+
                 var query = { '_id': Object(req.body.Id) };
                 var newValues = {
 
@@ -130,8 +132,8 @@ function all(req, res, next) {
 
                 res.json(respones.failure(statusCode.NON_AUTHORITATIVE_INFORMATION, err, 'token fail', "#US001"));
             } else if (decoded.type == "Admin") {
-                
-                Course.find({'isEnable': false}).exec( function (err, courses) {
+
+                Course.find({ 'isEnable': false }).exec(function (err, courses) {
 
                     if (err) {
 
@@ -141,8 +143,8 @@ function all(req, res, next) {
                         var finalArray = [];
                         for (let index = 0; index < courses.length; index++) {
 
-                            finalArray.push({label: courses[index].name,value:courses[index]._id});
-                            
+                            finalArray.push({ label: courses[index].name, value: courses[index]._id });
+
                         }
                         res.json(respones.success(statusCode.OK, 'success', "all courses", finalArray));
                     }
@@ -177,15 +179,15 @@ function view(req, res, next) {
 
                 res.json(respones.failure(statusCode.NON_AUTHORITATIVE_INFORMATION, err, 'token fail', "#US001"));
             } else if (decoded.type == "Admin") {
-                
-                Course.find().exec( function (err, courses) {
+
+                Course.find().exec(function (err, courses) {
 
                     if (err) {
 
                         res.json(respones.failure(statusCode.NOT_MODIFIED, err, 'failed', "#PFU001"));
                     } else {
 
-                        
+
                         res.json(respones.success(statusCode.OK, 'success', "all courses", courses));
                     }
                 });
@@ -219,15 +221,15 @@ function remove(req, res, next) {
 
                 res.json(respones.failure(statusCode.NON_AUTHORITATIVE_INFORMATION, err, 'token fail', "#US001"));
             } else if (decoded.type == "Admin") {
-                
-                Course.deleteOne({'_id': Object(req.params.id)}).exec( function (err, coursesResult) {
+
+                Course.deleteOne({ '_id': Object(req.params.id) }).exec(function (err, coursesResult) {
 
                     if (err) {
 
                         res.json(respones.failure(statusCode.NOT_MODIFIED, err, 'failed', "#PFU001"));
                     } else {
 
-                        
+
                         res.json(respones.success(statusCode.OK, 'success', "course removed", coursesResult));
                     }
                 });
@@ -261,8 +263,8 @@ function delDrop(req, res, next) {
 
                 res.json(respones.failure(statusCode.NON_AUTHORITATIVE_INFORMATION, err, 'token fail', "#US001"));
             } else if (decoded.type == "Admin") {
-                
-                Course.find().exec( function (err, courses) {
+
+                Course.find().exec(function (err, courses) {
 
                     if (err) {
 
@@ -272,8 +274,8 @@ function delDrop(req, res, next) {
                         var finalArray = [];
                         for (let index = 0; index < courses.length; index++) {
 
-                            finalArray.push({label: courses[index].name,value:courses[index]._id});
-                            
+                            finalArray.push({ label: courses[index].name, value: courses[index]._id });
+
                         }
                         res.json(respones.success(statusCode.OK, 'success', "all courses", finalArray));
                     }

@@ -18,7 +18,8 @@ class Courses extends Component {
             this.props.history.push('/sign_in');         
         }
         this.state = {
-            name: ''
+            name: '',
+            description: ''
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -35,6 +36,7 @@ class Courses extends Component {
         e.preventDefault();
         const catobj = {
             Name: this.state.name,
+            Description: this.state.description,
         };
         
         var token = localStorage.getItem('token');
@@ -68,7 +70,7 @@ class Courses extends Component {
 
         this.setState({
             name: '',
-            description: ''
+            description: '',
         })
 
 
@@ -87,6 +89,14 @@ class Courses extends Component {
                             onChange={this.handleInputChange}
                             value={this.state.name}
                             name="name"
+                        />
+                        <label>Decription</label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            onChange={this.handleInputChange}
+                            value={this.state.description}
+                            name="description"
                         />
                     </div>
 

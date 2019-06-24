@@ -23,6 +23,7 @@ class CourseView extends Component {
             course: [{
                 _id: '',
                 name: '',
+                description: '',
                 instructor: '',
 
             }]
@@ -62,17 +63,16 @@ class CourseView extends Component {
                     <table className="table">
                         <thead>
                             <tr>
-                                <th>ID</th> <th>Name</th> <th>Instructor</th>
+                                <th>ID</th> <th>Name</th> <th>Description</th> <th>Instructor</th>
                             </tr>
                         </thead>
                         <tbody>
                             {this.state.course.map((course) => (
-
                                 <tr>
                                     <td>{course._id}</td>
                                     <td>{course.name}</td>
-                                    <td>{course.email}</td>
-
+                                    <td>{course.description}</td>
+                                    <td>{course.instructor}</td>
                                 </tr>
                             ))}
                         </tbody>
