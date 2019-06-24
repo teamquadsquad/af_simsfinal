@@ -6,6 +6,7 @@ class NavBar extends Component {
     constructor(props) {
 
         super(props);
+
         this.logginButton = null;
         this.courseButton = null;
         this.adminCreate = null;
@@ -15,6 +16,9 @@ class NavBar extends Component {
         this.assignmentUpload = null;
         this.studentCourses = null;
         this.state = null;
+        this.courseAssignments = null;
+        this.instructorCourses = null;
+
         if(localStorage.getItem('token')){
 
             this.state = localStorage.getItem('name');
@@ -30,9 +34,16 @@ class NavBar extends Component {
             else if(localStorage.getItem('type') == "Student"){
 
                this.notificationButton = <Notifications />
-               this.assignmentUpload = <AssignmentUpload/>
+               this.assignmentUpload = <AssignmentUpload />
                this.studentCourses = <StudentCourses/>
-           }
+            }
+
+            else if(localStorage.getItem('type') == "Instructor"){
+
+                this.notificationButton = <Notifications />
+                this.studentCourses = <InstructorCourses />
+                this.assignmentUpload = <CourseAssignments />
+            }
 
         } else {
 
@@ -78,6 +89,12 @@ class NavBar extends Component {
                             </li>
                             <li className="nav-item" style={divStyle}>
                                 {this.loginButton}
+                            </li>
+                            <li className="nav-item ">
+                                {this.instructorCourses}
+                            </li>
+                            <li className="nav-item ">
+                                {this.courseAssignments}
                             </li>
                         </ul>
                     </div>
@@ -192,6 +209,28 @@ class StudentCourses extends React.Component {
          </div>
       );
    }
+}
+
+class InstructorCourses extends React.Component {
+
+    render() {
+        return (
+            <div>
+                <Link className="nav-link" to="/instructorCourses">Courses</Link>
+            </div>
+        );
+    }
+}
+
+class CourseAssignments extends React.Component {
+
+    render() {
+        return (
+            <div>
+                <Link className="nav-link" to="/courseAssignments">Assignments</Link>
+            </div>
+        );
+    }
 }
 
 export default NavBar;

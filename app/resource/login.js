@@ -1,5 +1,6 @@
 var pwd = require('../controllers/password');
 var jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 var config = require('../constant/config');
 var statusCode = require('../constant/status_codes');
 var respones = require('../constant/responses');
@@ -87,7 +88,7 @@ function login(req, res, next) {
                                 }
                             } else {
 
-                                Student.findOne({ 'username': req.body.Email }).exec(function (err, student) {
+                                Student.findOne({ 'email': req.body.Email }).exec(function (err, student) {
 
                                     if (err) {
 
@@ -96,28 +97,58 @@ function login(req, res, next) {
 
                                         if (student !== null) {
 
-                                            if (student.password === req.body.Password) {
+                                            // if (student.password === req.body.Password) {
+                                            //
+                                            //     const payload = {
+                                            //         id: student._id,
+                                            //         type: "Student"
+                                            //     };
+                                            //     //token is a encrypted code. encrypted by secret.send this as a response when logged.
+                                            //     var coursewebToken = jwt.sign(payload, config.secret, {
+                                            //     });
+                                            //     //read this in the frontend and show the things only related to admin
+                                            //     res.json(respones.success(statusCode.OK, 'success', 'Login successfully', {
+                                            //
+                                            //         id: student.id,
+                                            //         token: coursewebToken,
+                                            //         name: student.name,
+                                            //         type: "Student",
+                                            //
+                                            //     }));
+                                            // }
 
-                                                const payload = {
-                                                    id: student._id,
-                                                    type: "Student"
-                                                };
-                                                //token is a encrypted code. encrypted by secret.send this as a response when logged.
-                                                var coursewebToken = jwt.sign(payload, config.secret, {
-                                                });
-                                                //read this in the frontend and show the things only related to admin
-                                                res.json(respones.success(statusCode.OK, 'success', 'Login successfully', {
+                                            bcrypt.compare(req.body.Password, student.password, (err, result) => {
+                                                if (err) {
+                                                    return res.status(401).json({
+                                                        message: 'Authentication failed'
+                                                    });
+                                                }
+                                                if (result) {
 
-                                                    id: student.id,
-                                                    token: coursewebToken,
-                                                    name: student.name,
-                                                    type: "Student",
+                                                    const payload = {
+                                                        id: student._id,
+                                                        type: "Student"
+                                                    };
+                                                    //token is a encrypted code. encrypted by secret.send this as a response when logged.
+                                                    var coursewebToken = jwt.sign(payload, config.secret, {
+                                                    });
+                                                    //read this in the frontend and show the things only related to admin
+                                                    res.json(respones.success(statusCode.OK, 'success', 'Login successfully', {
 
-                                                }));
-                                            } else {
+                                                        id: student.id,
+                                                        token: coursewebToken,
+                                                        name: student.firstname,
+                                                        type: "Student",
 
-                                                res.json(respones.failure(statusCode.NON_AUTHORITATIVE_INFORMATION, 'Looks like your password is incorrect!', 'wrong_password', "#UL003"));
-                                            }
+                                                    }));
+
+                                                }
+
+                                                else{
+                                                    res.json(respones.failure(statusCode.NON_AUTHORITATIVE_INFORMATION, 'Looks like your password is incorrect!', 'wrong_password', "#UL003"));
+                                                }
+                                            });
+
                                         } else {
 
                                             res.json(respones.failure(statusCode.NOT_FOUND, 'Hey! Your email address is not valid.', 'invalid_email', "#UL004"));

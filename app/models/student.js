@@ -1,57 +1,34 @@
-const Joi = require('joi');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const StudentSchema = mongoose.model( 'Student', Schema({
+const StudentSchema = Schema({
 
     firstname: {
         type: String,
-        required: true,
-        minlength: 5,
-        maxlength: 50,
+        required: true
     },
 
     lastname: {
         type: String,
-        required: true,
-        minlength: 5,
-        maxlength: 50,
+        required: true
     },
 
     faculty: {
         type: String,
-        required: true,
-        minlength: 1,
-        maxlength: 50,
+        required: true
     },
 
-    username: {
+    email: {
         type: String,
         required: true,
-        minlength: 5,
-        maxlength: 255,
         unique: true
     },
 
     password: {
         type: String,
-        required: true,
-        minlength: 2,
-        maxlength: 255,
+        required: true
     }
-}));
 
-function validateStudent( student ){
-    const schema = {
-        firstname: Joi.string().min(5).max(50).required(),
-        lastname: Joi.string().min(5).max(50).required(),
-        faculty: Joi.string().min(1).max(50).required(),
-        username: Joi.string().min(5).max(255).required(),
-        password: Joi.string().min(2).max(255).required()
-    };
+});
 
-    return Joi.validate( student, schema );
-}
-
-exports.Student = StudentSchema;
-exports.validate = validateStudent;
+module.exports = mongoose.model('Student', StudentSchema);

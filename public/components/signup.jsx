@@ -10,7 +10,7 @@ class Signup extends Component {
             firstname: '',
             lastname: '',
             faculty: '',
-            username: '',
+            email: '',
             password: ''
         };
 
@@ -32,7 +32,7 @@ class Signup extends Component {
             firstname: this.state.firstname,
             lastname: this.state.lastname,
             faculty: this.state.faculty,
-            username: this.state.username,
+            email: this.state.email,
             password: this.state.password
         };
 
@@ -46,7 +46,7 @@ class Signup extends Component {
             firstname: '',
             lastname: '',
             faculty: '',
-            username: '',
+            email: '',
             password: ''
         })
     }
@@ -96,10 +96,10 @@ class Signup extends Component {
                             <div className="form-group">
                                 <input type="text"
                                        className="form-control"
-                                       placeholder="Username (Student Reg. Number)"
+                                       placeholder="Username (Email)"
                                        onChange={this.handleInputChange}
-                                       value={this.state.username}
-                                       name="username">
+                                       value={this.state.email}
+                                       name="email">
                                 </input>
                             </div>
 

@@ -7,9 +7,9 @@ import AdminCreate from "./createAdmin";
 import Instructor from "./instructor";
 import AssignInstructor from "./assignInstructor";
 import Admins from "./adminDashboard";
+
 import CoursesDashboard from "./courseDashboard";
 import InstructorsDashboard from "./instructorDashboard.jsx";
-import Assignment from "./assignmentsComponent";
 
 import AdminView from "./adminsView";
 import CourseView from "./courseView";
@@ -20,6 +20,12 @@ import DeleteAdmin from "./deleteAdmin";
 
 import AddAssignment from "./addAssignment";
 
+
+import Assignment from "./assignmentsComponent";
+import CourseAssignments from "./courseAssignments";
+import InstructorCourses from "./instructorCourses";
+import StudentCourses from "./studentCourses";
+import AssignmentUpload from "./assignmentUpload";
 
 import { Route, Link, Switch } from 'react-router-dom';
 
@@ -34,6 +40,7 @@ class Body extends Component {
                     <Route path="/courses" component={Courses} ></Route>
                     <Route path="/admin_create" component={AdminCreate} ></Route>
                     <Route path="/instructor" component={Instructor} ></Route>
+
                     <Route path="/assign_instructor" component={AssignInstructor} ></Route>
                     <Route path="/admin_dashboard" component={Admins} ></Route>
                     <Route path="/admin_view" component={AdminView} ></Route>
@@ -46,6 +53,15 @@ class Body extends Component {
                     <Route path="/course_delete" component={DeleteCourse} ></Route>
                     <Route path="/admin_delete" component={DeleteAdmin} ></Route>
                     <Route path="/create_assignments" component={AddAssignment} ></Route>
+
+                    <Route path="/assignInstructor" component={AssignInstructor} ></Route>
+                    <Route path="/admin_dashboard" component={Admins} ></Route>
+                    <Route path="/assignments" component={Assignment} ></Route>
+                    <Route path="/instructorCourses" component={InstructorCourses} ></Route>
+                    <Route path="/courseAssignments" component={CourseAssignments} ></Route>
+                    <Route path="/studentCourses" component={StudentCourses} ></Route>
+                    <Route path="/assignmentUpload" component={AssignmentUpload} ></Route>
+
                     <Route exact path="/" component={Home} ></Route>
                 </Switch>
             </div>

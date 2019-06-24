@@ -16,7 +16,7 @@ class SignIn extends Component {
             this.props.history.push('/sign_in');
         }
         this.state = {
-            name: '',
+            email: '',
             password: ''
         };
 

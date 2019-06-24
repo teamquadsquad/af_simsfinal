@@ -12,7 +12,7 @@ router.use('/admin', admin);
 router.use('/instructor', instructor);
 router.use('/course', course);
 router.use('/login', login);
-router.use('/student', student);
+router.use('/students', student);
 router.use('/assignments', assignment);
 
 module.exports = router;
