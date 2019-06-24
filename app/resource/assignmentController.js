@@ -38,19 +38,19 @@ exports.getAllAssignments = (req, res, next) => {
         .exec()
         .then(docs => {
             //console.log(docs);
-            const response = {
-                count: docs.length,
-                products: docs.map(doc => {
-                    return {
-                        assignmentName: doc.assignmentName,
-                        moduleName: doc.moduleName,
-                        toBeSubmittedBy: doc.toBeSubmittedBy,
-                        isOverdue: doc.isOverdue,
-                        file: doc.file
-                    }
-                })
-            };
-            res.status(200).json(response);
+            // const response = {
+            //     count: docs.length,
+            //     assignments: docs.map(doc => {
+            //         return {
+            //             assignmentName: doc.assignmentName,
+            //             moduleName: doc.moduleName,
+            //             toBeSubmittedBy: doc.toBeSubmittedBy,
+            //             isOverdue: doc.isOverdue,
+            //             file: doc.file
+            //         }
+            //     })
+            // };
+            res.status(200).json(docs);
         })
         .catch(err => {
             console.log(err);
