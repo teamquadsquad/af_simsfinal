@@ -4,7 +4,7 @@ var statusCode = require('../constant/status_codes');
 var respones = require('../constant/responses');
 
 var Course = require('../models/course');
-
+var Instructor = require('../models/instructor');
 /**
  * normal user register
  * @param {*} req 
@@ -187,8 +187,56 @@ function view(req, res, next) {
                         res.json(respones.failure(statusCode.NOT_MODIFIED, err, 'failed', "#PFU001"));
                     } else {
 
+                        var count = 0;
+                        var finalArray = [];
+                        for (let index = 0; index < courses.length; index++) {
+                            
+                            if (courses[index].instructor != null) {
 
-                        res.json(respones.success(statusCode.OK, 'success', "all courses", courses));
+                                Instructor.findById(courses[index].instructor).exec(function (err, resultIns) {
+
+                                    if (err) {
+
+                                        res.json(respones.failure(statusCode.NOT_MODIFIED, err, 'failed', "#PFU001"));
+                                    } else {
+
+                                        console.log(resultIns);
+                                        count = count + 1;
+                                        // courses[index].instructor = resultIns['name'];
+                                        finalArray.push(
+                                            {
+                                                "isEnable": courses[index].isEnable,
+                                                "_id": courses[index]._id,
+                                                "name": courses[index].name,
+                                                "instructor": resultIns['name'],
+                                                "description": courses[index].description
+                                            }
+                                        );
+                                        console.log(finalArray);
+                                        if (count == courses.length) {
+
+                                            console.log(count +  '==' + courses.length)
+                                            res.json(respones.success(statusCode.OK, 'success', "all courses", finalArray));
+                                        }
+                                    }
+                                });
+                            } else {
+
+                                count = count + 1;
+                                finalArray.push(
+                                    {
+                                        "isEnable": courses[index].isEnable,
+                                        "_id": courses[index]._id,
+                                        "name": courses[index].name,
+                                        "instructor": "",
+                                        "description": courses[index].description
+                                    }
+                                );
+                            }
+                            console.log(finalArray);
+                            
+                        }
+                        
                     }
                 });
             } else {
