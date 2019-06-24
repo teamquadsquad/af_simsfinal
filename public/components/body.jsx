@@ -10,12 +10,16 @@ import Admins from "./adminDashboard";
 import CoursesDashboard from "./courseDashboard";
 import InstructorsDashboard from "./instructorDashboard.jsx";
 import Assignment from "./assignmentsComponent";
+
 import AdminView from "./adminsView";
 import CourseView from "./courseView";
 import InstructorView from "./instructorView";
 import DeleteInstructor from "./deleteInstructor";
 import DeleteCourse from "./deleteCourse";
 import DeleteAdmin from "./deleteAdmin";
+
+import AddAssignment from "./addAssignment";
+
 
 import { Route, Link, Switch } from 'react-router-dom';
 
@@ -41,6 +45,7 @@ class Body extends Component {
                     <Route path="/instructor_delete" component={DeleteInstructor} ></Route>
                     <Route path="/course_delete" component={DeleteCourse} ></Route>
                     <Route path="/admin_delete" component={DeleteAdmin} ></Route>
+                    <Route path="/create_assignments" component={AddAssignment} ></Route>
                     <Route exact path="/" component={Home} ></Route>
                 </Switch>
             </div>
