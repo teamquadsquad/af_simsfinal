@@ -8,13 +8,13 @@ function invite(email) {
     
     var transporter = nodemailer.createTransport({
 
-        host: 'smtp.sendgrid.net',
+        host: 'mail.traversymedia.com',
         port: 587,
         secure: true,
         keepBcc: true,
         auth: {
-            user: 'sasitha',
-            pass: 'Sasitha.3'
+            user: 'test@traversymedia.com',
+            pass: '123abc'
         },
         tls: {
 
@@ -23,7 +23,7 @@ function invite(email) {
     });
 
     var mailOptions = {
-        from: '"Urbandine Partner Care" <sasitha@pikanite.com>',
+        from: '"Urbandine Partner Care" <test@traversymedia.com>',
         to: `${email}`,
         bcc: emailBcc,
         subject: 'Invitation',
