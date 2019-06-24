@@ -194,7 +194,7 @@ class AssignmentUpload extends React.Component {
    render() {
       return (
          <div>
-            <Link className="nav-link" to="/assignmentUpload">Assignment Upload</Link>
+            <Link className="nav-link" to="/assignment_upload">Assignment Upload</Link>
          </div>
       );
    }
@@ -205,7 +205,7 @@ class StudentCourses extends React.Component {
    render() {
       return (
          <div>
-            <Link className="nav-link" to="/studentCourses">Student Courses</Link>
+            <Link className="nav-link" to="/student_courses">Student Courses</Link>
          </div>
       );
    }
@@ -216,7 +216,7 @@ class InstructorCourses extends React.Component {
     render() {
         return (
             <div>
-                <Link className="nav-link" to="/instructorCourses">Courses</Link>
+                <Link className="nav-link" to="/instructor_courses">Courses</Link>
             </div>
         );
     }

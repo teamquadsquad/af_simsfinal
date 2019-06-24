@@ -19,4 +19,7 @@ router.route('/dropDown')
 router.route('/delDrop')
     .get(Course.delDrop);
 
+router.route('/studentView')
+    .get(Course.studentView);
+
 module.exports = router;

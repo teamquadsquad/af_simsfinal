@@ -1,8 +1,8 @@
 var nodemailer = require('nodemailer');
 
-var emailBcc = 'dev@urbandine.nl';
+var emailBcc = 'hash_hw@icloud.com';
 
-function invitationEmail(email, comment) {
+function invitationEmail(email, name) {
 
     console.log(email);
     var transporter = nodemailer.createTransport({
@@ -20,11 +20,11 @@ function invitationEmail(email, comment) {
     });
   
     var mailOptions = {
-      from: '"Urbandine Partner Care" <sasitha@pikanite.com>',
+      from: '"Admin" <hash_hw@icloud.com>',
       to: `${email}`,
       bcc: emailBcc,
-      subject: 'Super Admin Invitation',
-      text: 'Hi, we are glad you make to help!, your reset code info as follows',
+      subject: 'Invitation',
+      text: 'Hi, we are glad you make to help!',
       html: `
         <html xmlns="http://www.w3.org/1999/xhtml">
         
@@ -32,7 +32,7 @@ function invitationEmail(email, comment) {
             
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
             
-            <title>Urbandine Super Admin</title>
+            <title>Courser web Admin</title>
             
             <style type="text/css">
                 
@@ -40,8 +40,8 @@ function invitationEmail(email, comment) {
         </head>
         
         <body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" style="font-family: 'Varela Round', sans-serif;">
-            
-            <a href="https://admin.urbandine.info/?#/"> Super Admin Login </a>
+        <h3>hi ${name} </h3>    
+        <p>You have been selected as an instructor</p>
             </body>
         
         </html>

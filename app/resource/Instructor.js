@@ -3,7 +3,7 @@ var jwt = require('jsonwebtoken');
 var config = require('../constant/config');
 var statusCode = require('../constant/status_codes');
 var respones = require('../constant/responses');
-var invite = require('../emailTemplate/invite');
+var invite = require('../emailTemplate/adminInvitation');
 
 var Instructor = require('../models/instructor');
 
@@ -52,7 +52,7 @@ function create(req, res, next) {
                                 } else {
 
                                     
-                                    invite.invite(req.body.Email);
+                                    invite.invitationEmail(req.body.Email, req.body.Name);
                                     res.json(respones.success(statusCode.OK, 'success', 'Created Successfully', {
 
                                         name: instructor.name,

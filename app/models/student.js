@@ -15,7 +15,8 @@ const StudentSchema = Schema({
 
     faculty: {
         type: String,
-        required: true
+        required: true,
+        unique: false
     },
 
     email: {

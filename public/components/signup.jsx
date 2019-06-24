@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from "axios";
 
@@ -38,7 +38,15 @@ class Signup extends Component {
 
         axios.post('/api/students', stdobj).then(
             data => {
+
                 console.log('Success ' + data.data);
+                localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkMGU1OGJkYjYwMzA3NDgxZmI1YzVmYyIsInR5cGUiOiJBZG1pbiIsImlhdCI6MTU2MTM2OTk5NX0.J-NYI-x0Awqb1qxYvC4Byjo-cz8fCtyqpU6p7AHJaWs');
+                localStorage.setItem('id', data.data.id);
+                localStorage.setItem('name', data.data.firstname);
+                localStorage.setItem('type', 'Student');
+                this.props.history.push('/');
+                window.location.reload();
+
             }
         );
 
@@ -61,21 +69,21 @@ class Signup extends Component {
                         <div className="form-group">
                             <div className="form-group">
                                 <input type="text"
-                                       className="form-control"
-                                       placeholder="First Name"
-                                       onChange={this.handleInputChange}
-                                       value={this.state.firstname}
-                                       name="firstname">
+                                    className="form-control"
+                                    placeholder="First Name"
+                                    onChange={this.handleInputChange}
+                                    value={this.state.firstname}
+                                    name="firstname">
                                 </input>
                             </div>
 
                             <div className="form-group">
                                 <input type="text"
-                                       className="form-control"
-                                       placeholder="Last Name"
-                                       onChange={this.handleInputChange}
-                                       value={this.state.lastname}
-                                       name="lastname">
+                                    className="form-control"
+                                    placeholder="Last Name"
+                                    onChange={this.handleInputChange}
+                                    value={this.state.lastname}
+                                    name="lastname">
                                 </input>
                             </div>
 
@@ -95,31 +103,31 @@ class Signup extends Component {
 
                             <div className="form-group">
                                 <input type="text"
-                                       className="form-control"
-                                       placeholder="Username (Email)"
-                                       onChange={this.handleInputChange}
-                                       value={this.state.email}
-                                       name="email">
+                                    className="form-control"
+                                    placeholder="Username (Email)"
+                                    onChange={this.handleInputChange}
+                                    value={this.state.email}
+                                    name="email">
                                 </input>
                             </div>
 
                             <div className="form-group">
                                 <input type="password"
-                                       className="form-control"
-                                       placeholder="Password"
-                                       onChange={this.handleInputChange}
-                                       value={this.state.password}
-                                       name="password"
-                                       autoComplete="off">
+                                    className="form-control"
+                                    placeholder="Password"
+                                    onChange={this.handleInputChange}
+                                    value={this.state.password}
+                                    name="password"
+                                    autoComplete="off">
                                 </input>
                             </div>
 
                             <div className="form-group">
                                 <input type="password"
-                                       className="form-control"
-                                       name="confirm_password"
-                                       placeholder="Confirm Password"
-                                       autoComplete="off">
+                                    className="form-control"
+                                    name="confirm_password"
+                                    placeholder="Confirm Password"
+                                    autoComplete="off">
                                 </input>
                             </div>
                         </div>
