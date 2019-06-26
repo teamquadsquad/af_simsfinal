@@ -1,6 +1,25 @@
 import React, {Component} from 'react';
+import axios from 'axios';
 
 class CourseAssignments extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            assignments: []
+        }
+    }
+
+    componentDidMount() {
+        axios.get('/api/assignments').then(
+            data => {
+                this.setState({
+                    assignments: data.data
+                })
+            }
+        )
+    }
+
     render() {
         return (
             <div>

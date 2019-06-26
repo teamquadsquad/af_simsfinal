@@ -50,7 +50,7 @@ exports.getAllAssignments = (req, res, next) => {
                     }
                 })
             };
-            res.status(200).json(response);
+            res.status(200).json(docs);
         })
         .catch(err => {
             console.log(err);
